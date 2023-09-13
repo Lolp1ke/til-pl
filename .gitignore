@@ -1,0 +1,10 @@
+yarn.lock
+package-lock.json
+.editorconfig
+
+.env
+.env.*
+
+
+.idea/
+node_modules/

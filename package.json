@@ -1,0 +1,22 @@
+{
+	"name": "til-pl",
+	"version": "0.0.1",
+	"main": "src/index.ts",
+	"author": {
+		"name": "Alibek Bekzhanov",
+		"email": "freed.alibek@gmail.com",
+		"url": "https://github.com/Lolp1ke"
+	},
+	"license": "MIT",
+	"private": true,
+	"scripts": {
+		"start:dev": "nodemon src/index.ts --config nodemon.json"
+	},
+	"devDependencies": {
+		"@types/node": "^20.6.0",
+		"dotenv": "^16.3.1",
+		"nodemon": "^3.0.1",
+		"ts-node": "^10.9.1",
+		"typescript": "^5.2.2"
+	}
+}
