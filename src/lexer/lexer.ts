@@ -18,8 +18,6 @@ export class Lexer {
 			const tokenType = tokenTypes[i];
 			const token = this.code.substring(this.pos).match(tokenType.regexp);
 
-			console.log(token);
-
 			if (token && token[0]) {
 				this.tokens.push(new Token(tokenType, token[0], this.pos));
 				this.pos += token[0].length;

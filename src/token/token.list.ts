@@ -21,8 +21,8 @@ export class TokenList {
 	// identifier
 	CONST: TokenType = new TokenType("turaqty", /^turaqty*/);
 	LET: TokenType = new TokenType("bolsyn", /^bolsyn*/);
-	VARIABLE: TokenType = new TokenType("aınymaly", /^[_A-Z]*/g);
 	TYPE: TokenType = new TokenType("túri", /^(jol|san|logika)*/);
+	VARIABLE: TokenType = new TokenType("aınymaly", /^[_A-Z]*/g);
 
 	// values
 	NUMBER: TokenType = new TokenType("san", /^[.\d]*/g);
