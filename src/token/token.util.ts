@@ -12,7 +12,7 @@ export class TokenUtil {
 
 	public require(_pos: number, _tokens: Token[], ...tokenTypes: TokenType[]): Token {
 		const token = this.match(_pos, _tokens, ...tokenTypes);
-		if (!token) throw new SyntaxError(`${_pos}-sózde qate bar, ${tokenTypes[0].name} kerek`);
+		if (!token) throw new SyntaxError(`${_pos}-sózde qate bar, {${tokenTypes[0].name}} kerek`);
 		return token;
 	}
 }

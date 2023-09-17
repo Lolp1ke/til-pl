@@ -1,7 +1,9 @@
-import { Token, TokenList, TokenType, TokenUtil } from "../token";
+import { Token, TokenList, TokenUtil } from "../token";
 import { RootNode } from "../AST/root/root.node";
 import { NumberNode } from "../AST/type/number/number.node";
 import { StringNode } from "../AST/type/string/string.node";
+import { BooleanNode } from "../AST/type/boolean/boolean.node";
+import { VariableNode } from "../AST/variable/variable.node";
 
 export class Parser {
 	tokens: Token[];
@@ -14,29 +16,7 @@ export class Parser {
 		this.tokens = tokens;
 	}
 
-	// private match(...tokenTypes: TokenType[]): null | Token {
-	// 	if (this.pos < this.tokens.length) {
-	// 		const token = this.tokens[this.pos];
-	//
-	// 		if (tokenTypes.find((tokenType) => tokenType.name === token.type.name)) {
-	// 			this.pos += 1;
-	// 			console.log(token);
-	// 			return token;
-	// 		}
-	// 	}
-	// 	return null;
-	// }
-	//
-	// private require(...tokenTypes: TokenType[]): Token {
-	// 	const token = this.match(...tokenTypes);
-	// 	if (!token) throw new SyntaxError(`Error at position ${this.pos} expecting ${tokenTypes[0].name}`);
-	//
-	// 	return token;
-	// }
-
 	private node() {}
-
-	private print() {}
 
 	private variable() {
 		const token = this.tokenUtil.match(this.pos, this.tokens, ...[this.tokenList.CONST, this.tokenList.LET]);
@@ -47,6 +27,12 @@ export class Parser {
 			this.tokenUtil.require(this.pos, this.tokens, tokenType);
 			this.pos += 1;
 		}
+
+		return this.value();
+	}
+	private log() {
+		const log = this.tokenUtil.require(this.pos, this.tokens, this.tokenList.LOG);
+		if (!log) throw new SyntaxError(`${this.pos}-sózde qate bar, bul {aınymaly} nemese {korset} bolýy kerek`);
 	}
 
 	private value() {
@@ -56,24 +42,15 @@ export class Parser {
 		const string = this.tokenUtil.match(this.pos, this.tokens, this.tokenList.STRING);
 		if (string) return new StringNode(string);
 
+		const boolean = this.tokenUtil.match(this.pos, this.tokens, this.tokenList.BOOLEAN);
+		if (boolean) return new BooleanNode(boolean);
+
 		const variable = this.tokenUtil.match(this.pos, this.tokens, this.tokenList.VARIABLE);
-		if (variable) return variable;
+		if (variable) return new VariableNode(variable);
 	}
-	private log() {}
 
 	expression() {
-		this.variable();
-		// const token = this.match(new TokenList().CONST, new TokenList().LET);
-		// if (!token) {
-		// 	// const;
-		// }
-		// this.pos -= 1;
-		// const variable = this.match(new TokenList().VARIABLE);
-		// if (!variable) {
-		// 	throw new Error(`At postion ${this.pos} must be a variable`);
-		// }
-		// if (token.type.name === new TokenList().CONST.name) {
-		// }
+		const variableNode = this.variable();
 	}
 
 	public code() {
