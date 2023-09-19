@@ -1,6 +1,6 @@
 export class TokenType {
-	name: string;
-	regexp: RegExp;
+	readonly name: string;
+	readonly regexp: RegExp;
 
 	constructor(name: string, regexp: RegExp) {
 		this.name = name;

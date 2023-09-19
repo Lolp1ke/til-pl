@@ -12,7 +12,7 @@ import { BinaryNode } from "../AST/operator/binary/binary.node";
 export class Parser {
 	private pos: number = 0;
 	private readonly tokens: Token[];
-	private scope: any = {};
+	private scope: object = {};
 	private readonly tokenList = new TokenList();
 
 	constructor(tokens: Token[]) {
@@ -116,7 +116,7 @@ export class Parser {
 	public run(node: Node) {
 		if (node instanceof NumberNode) return Number(node.token.text);
 		if (node instanceof StringNode) return String(node.token.text);
-		if (node instanceof BooleanNode) return Boolean(node.token.text);
+		if (node instanceof BooleanNode) return Boolean(node.token.text === "durys");
 
 		if (node instanceof UnaryNode) {
 			switch (node.operator.type.name) {
@@ -142,13 +142,16 @@ export class Parser {
 				case this.tokenList.ASSIGN.name:
 					const result = this.run(node.right);
 					const variableNode = node.left;
-					this.scope[variableNode.token.text] = result;
+					this.scope[variableNode.token.text as string] = result;
 					return result;
 			}
 		}
 
 		if (node instanceof VariableNode) {
-			if (this.scope[node.token.text]) {
+			if (
+				typeof node.token.text === "string" &&
+				(this.scope[node.token.text] !== undefined || this.scope[node.token.text] !== null)
+			) {
 				return this.scope[node.token.text];
 			} else throw new Error(`{${node.token.text}} aınymaly tabylmady`);
 		}

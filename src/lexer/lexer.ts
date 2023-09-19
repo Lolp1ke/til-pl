@@ -9,7 +9,7 @@ export class Lexer {
 		this.code = code;
 	}
 
-	public next() {
+	private next() {
 		if (this.pos >= this.code.length) return false;
 
 		const tokenTypes: TokenType[] = Object.values(new TokenList());

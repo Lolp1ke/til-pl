@@ -1,11 +1,11 @@
 import { Node } from "../../node";
-import { Token } from "../../../token";
+import { type Token } from "../../../token";
 
 export class BinaryNode extends Node {
-	operator: Token;
+	readonly operator: Token;
 
-	right: Node;
-	left: Node;
+	readonly right: Node;
+	readonly left: Node;
 
 	constructor(operator: Token, right: Node, left: Node) {
 		super();

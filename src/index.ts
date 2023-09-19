@@ -2,8 +2,7 @@ import { Lexer } from "./lexer/lexer";
 import { Parser } from "./parser/parser";
 
 const code: string = `
-    turaqty: san SAN = (1 + 1.23) / (2 * 54);
-    korset SAN;
+    korset 123;
 `;
 
 const lexer = new Lexer(code);

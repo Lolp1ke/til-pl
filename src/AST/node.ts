@@ -1,8 +1,8 @@
-import { Token } from "../token";
+import { type Token } from "../token";
 
 export class Node {
-	token?: Token;
-	right?: Node;
-	left?: Node;
-	operand?: Node;
+	readonly token: Token;
+	readonly right?: Node;
+	readonly left?: Node;
+	readonly operand?: Node;
 }

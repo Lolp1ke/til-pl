@@ -1,9 +1,9 @@
 import { Node } from "../../node";
-import { Token } from "../../../token";
+import { type Token } from "../../../token";
 
 export class UnaryNode extends Node {
-	operator: Token;
-	operand: Node;
+	readonly operator: Token;
+	readonly operand: Node;
 
 	constructor(operator: Token, operand: Node) {
 		super();

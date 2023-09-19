@@ -1,8 +1,8 @@
-import { Token } from "../../../token";
 import { Node } from "../../node";
+import { type Token } from "../../../token";
 
 export class NumberNode extends Node {
-	token: Token;
+	readonly token: Token;
 
 	constructor(token: Token) {
 		super();
