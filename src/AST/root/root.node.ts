@@ -1,6 +1,6 @@
 import { Node } from "../node";
 
-export class RootNode {
+export class RootNode extends Node {
 	nodes: Node[] = [];
 
 	public addNode(node: Node) {
