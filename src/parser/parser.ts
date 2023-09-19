@@ -1,6 +1,6 @@
-import { Token, TokenList, TokenType } from "../token";
+import { type Token, TokenList, type TokenType } from "../token";
 
-import { Node } from "../AST/node";
+import { type Node } from "../AST/node";
 import { RootNode } from "../AST/root/root.node";
 import { StringNode } from "../AST/type/string/string.node";
 import { NumberNode } from "../AST/type/number/number.node";
@@ -12,7 +12,7 @@ import { BinaryNode } from "../AST/operator/binary/binary.node";
 export class Parser {
 	private pos: number = 0;
 	private readonly tokens: Token[];
-	private scope: object = {};
+	private memory: object = {};
 	private readonly tokenList = new TokenList();
 
 	constructor(tokens: Token[]) {
@@ -142,7 +142,7 @@ export class Parser {
 				case this.tokenList.ASSIGN.name:
 					const result = this.run(node.right);
 					const variableNode = node.left;
-					this.scope[variableNode.token.text as string] = result;
+					this.memory[variableNode.token.text as string] = result;
 					return result;
 			}
 		}
@@ -150,9 +150,9 @@ export class Parser {
 		if (node instanceof VariableNode) {
 			if (
 				typeof node.token.text === "string" &&
-				(this.scope[node.token.text] !== undefined || this.scope[node.token.text] !== null)
+				(this.memory[node.token.text] !== undefined || this.memory[node.token.text] !== null)
 			) {
-				return this.scope[node.token.text];
+				return this.memory[node.token.text];
 			} else throw new Error(`{${node.token.text}} aınymaly tabylmady`);
 		}
 
