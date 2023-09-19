@@ -9,7 +9,6 @@ const task: string = `
 
 ```ts
 const task: string = `
-	1) Transform TokenUtil to singleton;
 `;
 ```
 

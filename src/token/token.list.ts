@@ -15,8 +15,8 @@ export class TokenList {
 	SEMICOLON: TokenType = new TokenType("núkteli útir", /^;/g);
 	COLON: TokenType = new TokenType("qos núkte", /^:/g);
 	SPACE: TokenType = new TokenType("bos oryn", /^[ \t\n\r]/g);
-	LEFT_BRACKET: TokenType = new TokenType("sol jaq jaqsha", /^[(] /g);
-	RIGHT_BRACKET: TokenType = new TokenType("oń jaq jaqsha", /^[)] /g);
+	LEFT_BRACKET: TokenType = new TokenType("sol jaq jaqsha", /^[\\(]/g);
+	RIGHT_BRACKET: TokenType = new TokenType("oń jaq jaqsha", /^[\\)]/g);
 
 	// identifier
 	CONST: TokenType = new TokenType("turaqty", /^turaqty*/g);

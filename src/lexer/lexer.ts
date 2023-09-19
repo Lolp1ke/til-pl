@@ -1,8 +1,8 @@
 import { Token, TokenList, TokenType } from "../token";
 
 export class Lexer {
-	code: string;
-	pos: number = 0;
+	private readonly code: string;
+	private pos: number = 0;
 	tokens: Token[] = [];
 
 	constructor(code: string) {

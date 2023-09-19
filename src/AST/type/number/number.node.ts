@@ -1,9 +1,12 @@
 import { Token } from "../../../token";
+import { Node } from "../../node";
 
-export class NumberNode {
-	number: Token;
+export class NumberNode extends Node {
+	token: Token;
 
-	constructor(number: Token) {
-		this.number = number;
+	constructor(token: Token) {
+		super();
+
+		this.token = token;
 	}
 }
