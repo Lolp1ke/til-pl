@@ -4,9 +4,14 @@ export class TokenList {
 	// Operators
 	readonly ADD: TokenType = new TokenType("qosý", /^[+]/g);
 	readonly MINUS: TokenType = new TokenType("mınýs", /^-/g);
-	readonly MULTIPLICATION: TokenType = new TokenType("kóbeıtý", /^[*]/g);
+
+    readonly POWER: TokenType = new TokenType("dáreje", /^[*][*]/g);
+    readonly REMAINLESS_DIVISION: TokenType = new TokenType("qaldyqsyz bólý", /^\/\//g);
+
+    readonly MULTIPLICATION: TokenType = new TokenType("kóbeıtý", /^[*]/g);
 	readonly DIVISION: TokenType = new TokenType("bólý", /^\//g);
-	readonly ASSIGN: TokenType = new TokenType("teń", /^=/g);
+    
+    readonly ASSIGN: TokenType = new TokenType("teń", /^=/g);
 
 	// built in commands
 	readonly LOG: TokenType = new TokenType("kórset", /^korset/g);

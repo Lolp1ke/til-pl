@@ -8,11 +8,13 @@ import { BooleanNode } from "../AST/type/boolean/boolean.node";
 import { VariableNode } from "../AST/variable/variable.node";
 import { UnaryNode } from "../AST/operator/unary/unary.node";
 import { BinaryNode } from "../AST/operator/binary/binary.node";
-
+ 
 export class Parser {
 	private pos: number = 0;
 	private readonly tokens: Token[];
-	private memory: object = {};
+	private memory: any = {
+        type: {},
+    };
 	private readonly tokenList = new TokenList();
 
 	constructor(tokens: Token[]) {
@@ -72,6 +74,8 @@ export class Parser {
 		const operators = [
 			this.tokenList.ADD,
 			this.tokenList.MINUS,
+            this.tokenList.POWER,
+            this.tokenList.REMAINLESS_DIVISION,
 			this.tokenList.MULTIPLICATION,
 			this.tokenList.DIVISION,
 		];
@@ -90,11 +94,15 @@ export class Parser {
 
 	private parse(): Node {
 		if (!this.match(this.tokenList.CONST, this.tokenList.LET)) return this.log();
-		this.require(this.tokenList.COLON);
-		this.require(this.tokenList.TYPE);
-
-		let variableNode = this.value();
-		const assignOperator = this.match(this.tokenList.ASSIGN);
+		
+        this.require(this.tokenList.COLON);
+		const type = this.require(this.tokenList.TYPE);
+		
+        let variableNode = this.value();
+        
+		this.memory["type"][variableNode.token.value as string] = type;
+        
+        const assignOperator = this.match(this.tokenList.ASSIGN);
 		if (assignOperator) {
 			const rightNode = this.expression();
 			return new BinaryNode(assignOperator, rightNode, variableNode);
@@ -114,9 +122,13 @@ export class Parser {
 	}
 
 	public run(node: Node) {
-		if (node instanceof NumberNode) return Number(node.token.text);
-		if (node instanceof StringNode) return String(node.token.text);
-		if (node instanceof BooleanNode) return Boolean(node.token.text === "durys");
+		if (node instanceof NumberNode) return Number(node.token.value);
+		if (node instanceof StringNode) return String(node.token.value);
+		if (node instanceof BooleanNode) {
+            if (node.token.value === "durys") return true;
+            else if (node.token.value === "burys") return false;
+            else throw new SyntaxError(`${this.pos}-sózde qate bar, {durys} nemese {burys} kerek`);
+        }
 
 		if (node instanceof UnaryNode) {
 			switch (node.operator.type.name) {
@@ -133,6 +145,12 @@ export class Parser {
 				case this.tokenList.MINUS.name:
 					return this.run(node.left) - this.run(node.right);
 
+                case this.tokenList.POWER.name:
+                    return this.run(node.left) ** this.run(node.right);
+
+                case this.tokenList.REMAINLESS_DIVISION.name:
+                    return Math.floor(this.run(node.left) / this.run(node.right));
+
 				case this.tokenList.MULTIPLICATION.name:
 					return this.run(node.left) * this.run(node.right);
 
@@ -142,18 +160,18 @@ export class Parser {
 				case this.tokenList.ASSIGN.name:
 					const result = this.run(node.right);
 					const variableNode = node.left;
-					this.memory[variableNode.token.text as string] = result;
+					this.memory[variableNode.token.value as string] = result;
 					return result;
 			}
 		}
 
 		if (node instanceof VariableNode) {
 			if (
-				typeof node.token.text === "string" &&
-				(this.memory[node.token.text] !== undefined || this.memory[node.token.text] !== null)
+				typeof node.token.value === "string" &&
+				(this.memory[node.token.value] !== undefined || this.memory[node.token.value] !== null)
 			) {
-				return this.memory[node.token.text];
-			} else throw new Error(`{${node.token.text}} aınymaly tabylmady`);
+				return this.memory[node.token.value];
+			} else throw new Error(`{${node.token.value}} aınymaly tabylmady`);
 		}
 
 		if (node instanceof RootNode)
@@ -161,6 +179,8 @@ export class Parser {
 				this.run(_node);
 			});
 
+        console.log(this.memory);
+        
 		throw new Error(`${this.pos}, qandaı da bir qate bar!`);
 	}
 }
