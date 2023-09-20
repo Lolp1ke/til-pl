@@ -1,6 +1,7 @@
 yarn.lock
 package-lock.json
 .editorconfig
+tsconfig.tsbuildinfo
 
 .env
 .env.*
@@ -8,3 +9,6 @@ package-lock.json
 
 .idea/
 node_modules/
+
+build/
+dist/

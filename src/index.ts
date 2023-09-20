@@ -15,8 +15,6 @@ const code: string = `
 
 const lexer = new Lexer(code);
 lexer.analysis();
-// console.log(lexer.tokens);
-
 
 const parser = new Parser(lexer.tokens);
 parser.run(parser.code());
