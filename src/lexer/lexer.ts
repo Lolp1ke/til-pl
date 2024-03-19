@@ -9,7 +9,7 @@ export class Lexer {
 		this.code = code;
 	}
 
-	private next() {
+	private next(): boolean {
 		if (this.pos >= this.code.length) return false;
 
 		const tokenTypes: TokenType[] = Object.values(new TokenList());
@@ -26,8 +26,8 @@ export class Lexer {
 		}
 	}
 
-	public analysis() {
-		while (this.next()) {}
+	public analysis(): Token[] {
+		while (this.next()) { }
 
 		this.tokens = this.tokens.filter((token) => token.type.name !== new TokenList().SPACE.name);
 		return this.tokens;

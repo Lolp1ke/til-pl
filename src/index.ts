@@ -2,14 +2,13 @@ import { Lexer } from "./lexer/lexer";
 import { Parser } from "./parser/parser";
 
 const code: string = `
-	turaqty: jol _ALMA = zhasyl;
+	turaqty: san X = 123;
 
-    korset _ALMA + 23;
+  korset X;
 `;
 
 const lexer = new Lexer(code);
-lexer.analysis();
-// console.log(lexer.tokens);
+lexer.tokens = lexer.analysis();
 
 const parser = new Parser(lexer.tokens);
 parser.run(parser.code());

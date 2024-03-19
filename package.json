@@ -10,8 +10,8 @@
 	"license": "MIT",
 	"private": true,
 	"scripts": {
-		"start:dev": "nodemon src/index.ts --config nodemon.json",
-        "build": "yarn tsc --project ./tsconfig.json"
+		"start:dev": "nodemon src/index.ts",
+		"build": "tsc --project ./tsconfig.json"
 	},
 	"devDependencies": {
 		"@types/node": "^20.6.0",
